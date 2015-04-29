@@ -1,4 +1,4 @@
-var app = angular.module("HypeApp", ["ngRoute"]);
+var app = angular.module("Checkin", ["ngRoute"]);
 
 app.config(function ($routeProvider, $httpProvider, $locationProvider, $sceProvider) {
 
