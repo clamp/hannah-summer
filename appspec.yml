@@ -15,7 +15,7 @@ os: linux
 # and reached.
 files:
   - source: index.html
-    destination: /var/www/
+    destination: /var/www/html/
 
 # Hooks will install all dependencies and boot up the server
 hooks:
