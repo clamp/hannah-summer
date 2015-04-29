@@ -1,0 +1,37 @@
+# This is an appspec.yml template file for use with AWS CodeDeploy.
+# The lines in this template starting with the hashtag symbol are 
+#   instructional comments and can be safely left in the file or 
+#   ignored.
+# For help completing this file, see the "AppSpec File Reference" in the  
+#   "AWS CodeDeploy User Guide" at
+#   http://docs.aws.amazon.com/codedeploy/latest/userguide/app-spec-ref.html
+
+version: 0.0
+
+os: linux 
+
+# This is amazon's way of copying files from the directory
+# and into the web (www) folder. There, they can be executed
+# and reached.
+files:
+  - source: index.html
+    destination: /var/www/
+
+# Hooks will install all dependencies and boot up the server
+hooks:
+  BeforeInstall:
+    - location: scripts/install_dependencies
+      timeout: 300
+      runas: root
+    - location: scripts/start_server
+      timeout: 300
+      runas: root
+  ApplicationStart:
+    - location: scripts/start
+      timeout: 300
+      runas: root
+  ApplicationStop:
+    - location: scripts/stop_server
+      timeout: 300
+      runas: root
+

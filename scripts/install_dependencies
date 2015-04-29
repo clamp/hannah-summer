@@ -1,0 +1,5 @@
+#!/bin/bash
+yum install -y httpd
+-curl -sL https://rpm.nodesource.com/setup | bash -
+yum install -y nodejs npm
+npm install forever -g
