@@ -1,0 +1,188 @@
+<head>
+    <title>Tour Guide Management System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="../leadership/css/bootstrap.css" media="screen"/>
+    <link rel="stylesheet" href="../leadership/css/bootswatch.css" media="screen"/>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+
+    <style type="text/css"></style>
+</head>
+<body>
+<!-- <li><a href="#activity" data-toggle="tab">Activity</a></li> -->
+<!-- <li><a href="#coverage" data-toggle="tab">Coverage?</a></li> -->
+<!-- <li><a href="#reports" data-toggle="tab">Reports</a></li></ul> -->
+
+<div id="myTabContent" class="tab-content">
+    <div class="container jumbotron">
+        <h3 align="center">If you have a tour key, please bring it back to the VC <strong>ASAP!</strong></h3>
+        <hr style="border-top-color: black"/>
+        <h3 align="center">Spring Training is February 22nd. <br>All active tour guides <strong>MUST</strong> be there!
+        </h3>
+    </div>
+    <div class="tab-pane fade active in" id="checkIn">
+
+        <h2 class="col-md-offset-1">Check In</h2>
+
+        <div class="well col-md-6 col-md-offset-3">
+            <p class="text-center" style="font-size: 120px; font-weight: 100"><span id="clock"></span></p>
+            <fieldset>
+                <div class="form-group"><label for="inputEmail" class="col-lg-2 control-label">
+                    <h4>Name</h4></label>
+
+                    <div class="col-lg-10">
+                        <select name="name" class="form-control" id="tourGuide" form="checkin">
+                            <option value='0'>Select...</option>
+
+                        </select>
+
+
+                        <!--<div class="shadow checkbox">
+                            <label><input type="checkbox" onclick="$('.shadow-open').slideToggle('1000')"/>Shadowing?</label>
+                        </div>
+
+                        <div class="support checkbox">
+                            <label><input type="checkbox" onclick="$('.support-open').slideToggle('1000')"/>Supporting a Tour?</label>
+                        </div> -->
+
+                        <div class="additional checkbox">
+                            <label><input type="checkbox" onclick="$('.additional-open').slideToggle('1000')"/>Additonal
+                                Tour</label>
+                        </div>
+
+                        <!--<div class="shadow-open col-md-6">
+                            <h3>Select your Name: </h3>
+                                This is for new hires/Minglers who have shadowing requirements, NOT for official
+                                shadowing!
+                            <select name="shadow" class="form-control" id="shadow" form="checkin">
+                                <option value='0'>Select...</option>
+								<?php
+
+                        $q = "SELECT first_name, last_name, uid FROM master_roster ORDER BY first_name";
+                        $result = mysqli_query($mysqli, $q);
+
+
+                        while ($row = mysqli_fetch_array($result)) {
+                            echo "<option value='" . $row['uid'] . "'>" . $row['first_name'] . " " . $row['last_name'] . "</option>";
+                        }
+                        ?>
+                            </select>
+						</div>
+
+                        <div class="support-open col-md-6">
+							<h3>Select your Name: </h3>
+                            This is for Minglers who have support assistant requirements.
+                            <select name="support" class="form-control" id="support" form="checkin">
+								<option value='0'>Select...</option>
+								<?php
+
+
+                        $q = "SELECT first_name, last_name, uid FROM master_roster WHERE type = 3 ORDER BY first_name";
+                        $result = mysqli_query($mysqli, $q);
+
+
+                        while ($row = mysqli_fetch_array($result)) {
+                            echo "<option value='" . $row['uid'] . "'>" . $row['first_name'] . " " . $row['last_name'] . "</option>";
+                        }
+                        ?>
+                            </select>
+						</div> -->
+
+                        <div class="additional-open col-md-6">
+                            <h3>Select your Name: </h3>
+                            <b>THIS IS ONLY FOR TOUR GUIDES. MINGLERS EMAIL MATT/XANDER.</b><br>
+                            This is if you are giving an additional tour. Anyone requesting coverage will also receive
+                            it at this time
+                            <select name="additional" class="form-control" id="additional" form="checkin">
+                                <option value='0'>Select...</option>
+
+                            </select>
+                        </div>
+
+                        <br/>
+                    </div>
+                </div>
+
+                <div id="checkin">
+                    <button type="submit" class="col-md-offset-8 btn btn-primary">Check In</button>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+
+</div>
+<br/>
+<br/><br/>
+<br/><br/>
+<br/><br/>
+<footer>
+
+</footer>
+</div>
+<script>
+    //$('.coverage-open').slideUp(0);
+
+    function updateClock() {
+        var currentTime = new Date();
+        var currentHoursAP = currentTime.getHours();
+        var currentHours = currentTime.getHours();
+        var currentMinutes = currentTime.getMinutes();
+        var currentSeconds = currentTime.getSeconds();
+
+        // Pad the minutes and seconds with leading zeros, if required
+        currentMinutes = (currentMinutes < 10 ? "0" : "") + currentMinutes;
+        currentSeconds = (currentSeconds < 10 ? "0" : "") + currentSeconds;
+
+        // Choose either "AM" or "PM" as appropriate
+        var timeOfDay = (currentHours < 12) ? "AM" : "PM";
+
+        // Convert the hours component to 12-hour format if needed
+        currentHoursAP = (currentHours > 12) ? currentHours - 12 : currentHours;
+
+        // Convert an hours component of "0" to "12"
+        currentHoursAP = (currentHoursAP == 0) ? 12 : currentHoursAP;
+
+        // Compose the string for display
+        var currentTimeString = currentHours + ":" + currentMinutes + ":" + currentSeconds;
+
+        $("#clock").html(currentTimeString);
+
+        if ((currentMinutes == 0 || currentMinutes == 30) && currentSeconds == 00) {
+            location.reload();
+        }
+    }
+
+    function checkin() {
+        var uid = $("#tourGuide").val();
+        //var shadow = $("#shadow").val();
+        //var support = $("#support").val();
+        var additional = $("#additional").val();
+
+        if (uid == 0 && additional == 0) {
+            alert("Please select a user");
+            return -1;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "checkin.php",
+            data: {uid: uid, shadow: 0, support: 0, additional: additional}
+        })
+                .done(function (msg) {
+                    alert(msg);
+                    location.reload();
+                });
+    }
+
+    console.log("Day: <?php echo $day?>, Date: <?php echo $curdate?>, Week: <?php echo $week?>, Time: <?php echo $newtime?>");
+
+    $(document).ready(function () {
+        $("#checkin").click(checkin);
+        updateClock();
+        setInterval(updateClock, 1000);
+        $('.additional-open').slideUp(0);
+    });
+</script>
+
+</body>
