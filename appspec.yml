@@ -14,7 +14,7 @@ os: linux
 # and into the web (www) folder. There, they can be executed
 # and reached.
 files:
-  - source: index.html
+  - source: public/*
     destination: /var/www/html/
 
 # Hooks will install all dependencies and boot up the server
