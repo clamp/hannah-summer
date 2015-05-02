@@ -1,7 +1,51 @@
-
-body {
-    background-image: url(http://upload.wikimedia.org/wikipedia/commons/1/1e/Northeastern_University_-_51.JPG);
+.checkin-wrap {
+    background-image: url(http://commondatastorage.googleapis.com/static.panoramio.com/photos/original/16599165.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    width: 100%;
+    height: 100%;
+}
+
+.well {
+    background-color: rgba(0,0,0,.5);
+    background-image: none;
+    position: relative;
+    top: 4.7em;
+}
+
+fieldset {
+    color: white;
+}
+
+.top-but {
+    border-radius: 0px;
+    color: white;
+    top: 0px;
+    right: 0px;
+    position: fixed;
+    background-color: rgba(0,0,0,.5);
+}
+
+body {
+    background-color: darkgrey;
+}
+
+.selbut {
+    border-radius: 0px;
+    color: white;
+    background-color: rgba(0,0,0,.5);
+}
+
+.btn:hover {
+    color: cornflowerblue;
+}
+
+.buttons {
+    position: relative;
+    top: 40%;
+}
+
+.fa-5 {
+    font-size: 12em;
 }

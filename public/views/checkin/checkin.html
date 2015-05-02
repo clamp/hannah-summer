@@ -1,25 +1,60 @@
-<div class="tab-pane fade active in" id="checkIn">
+<div class="checkin-wrap">
+    <a class="btn top-but" href="#verify"><i class="fa fa-paw fa-2x"></i></a>
+    <br><br><br><br><br><br><br><br><br><br>
 
-    <h2 class="col-md-offset-1">Check In</h2>
-
-    <div class="well col-md-6 col-md-offset-3">
-        <p class="text-center" style="font-size: 120px; font-weight: 100"><span id="clock"></span></p>
+    <div class="well col-sm-6 col-sm-offset-3">
+        <p class="text-center" style="color: white; font-size: 120px; font-weight: 100"><span id="clock"></span></p>
         <fieldset>
-            <div class="form-group"><label for="inputEmail" class="col-lg-2 control-label">
-                <h4>Name</h4></label>
-
-                <div class="col-lg-10">
-                    <select name="name" class="form-control" id="tourGuide" form="checkin">
+            <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <select name="name" class="form-control" id="tourGuide" ng-model="selected">
                         <option value='0'>Select...</option>
-
+                        <option ng-repeat="person in people" value="{{person.id}}">{{person.name}}</option>
                     </select>
-                    <br/>
+                    <br>
+                    <a ng-click="checkIn(selected)"
+                            style="float: right"
+                            type="submit"
+                            class="col-md-offset-6 btn btn-default">Check In</a>
                 </div>
-            </div>
-
-            <div id="checkin">
-                <button type="submit" class="col-md-offset-6 btn btn-primary">Check In</button>
             </div>
         </fieldset>
     </div>
 </div>
+
+<script>
+    //$('.coverage-open').slideUp(0);
+
+    function updateClock() {
+        var currentTime = new Date();
+        var currentHoursAP = currentTime.getHours();
+        var currentHours = currentTime.getHours();
+        var currentMinutes = currentTime.getMinutes();
+        var currentSeconds = currentTime.getSeconds();
+
+        // Pad the minutes and seconds with leading zeros, if required
+        currentMinutes = (currentMinutes < 10 ? "0" : "") + currentMinutes;
+        currentSeconds = (currentSeconds < 10 ? "0" : "") + currentSeconds;
+
+        // Choose either "AM" or "PM" as appropriate
+        var timeOfDay = (currentHours < 12) ? "AM" : "PM";
+
+        // Convert the hours component to 12-hour format if needed
+        currentHoursAP = (currentHours > 12) ? currentHours - 12 : currentHours;
+
+        // Convert an hours component of "0" to "12"
+        currentHoursAP = (currentHoursAP == 0) ? 12 : currentHoursAP;
+
+        // Compose the string for display
+        var currentTimeString = currentHours + ":" + currentMinutes + ":" + currentSeconds;
+
+        $("#clock").html(currentTimeString);
+
+        if ((currentMinutes == 0 || currentMinutes == 30) && currentSeconds == 00) {
+            location.reload();
+        }
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+</script>
